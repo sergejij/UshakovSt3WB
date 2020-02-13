@@ -1,18 +1,20 @@
 package balance
 
-type BalanceChecker interface {
-	BalanceCheck() int
+type AmountChecker interface {
+	AmountCheck() int
 }
-type balance struct {
+
+type amount struct {
 	accountMoney int
 }
-func (b *balance) BalanceCheck() int {
+
+func (b *amount) AmountCheck() int {
 	return b.accountMoney
 }
 
-// NewBalance initializes the BalanceChecker.
-func NewBalance(accMoney int) (BalanceChecker, error) {
-	return &balance{
+// NewAmount initializes the AmountChecker.
+func NewAmount(accMoney int) AmountChecker {
+	return &amount{
 		accountMoney: accMoney,
-	}, nil
+	}
 }

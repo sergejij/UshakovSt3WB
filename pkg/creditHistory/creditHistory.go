@@ -1,20 +1,24 @@
 package creditHistory
 
 type HistoryChecker interface {
-	HistoryCheck(personName string) string
+	HistoryCheck(personName string) bool
 }
-type creditHistory struct {
 
+type creditHistory struct {
+	person map[string]bool
 }
-func (c *creditHistory) HistoryCheck(personName string) string {
-	if personName == "Alex" || personName == "Fill" {
-		return "bad"
+
+func (c *creditHistory) HistoryCheck(personName string) bool {
+	if c.person[personName] {
+		return false
 	}
-	return "good"
+	return true
 }
 
 // NewHistoryChecker initializes the HistoryChecker.
-func NewHistoryChecker() (HistoryChecker, error) {
-	return &creditHistory{}, nil
+func NewHistoryChecker(name string) HistoryChecker {
+	return &creditHistory{
+		person: map[string]bool{name:true},
+	}
 }
 
