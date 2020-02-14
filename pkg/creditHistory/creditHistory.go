@@ -1,6 +1,10 @@
 package creditHistory
 
-type HistoryChecker interface {
+import (
+	"fasad/pkg/models"
+)
+
+type CreditHistory interface {
 	HistoryCheck(personName string) bool
 }
 
@@ -10,15 +14,24 @@ type creditHistory struct {
 
 func (c *creditHistory) HistoryCheck(personName string) bool {
 	if c.person[personName] {
-		return false
+		return true
 	}
-	return true
+	return false
 }
 
 // NewHistoryChecker initializes the HistoryChecker.
-func NewHistoryChecker(name string) HistoryChecker {
+func NewCreditHistory(name string) CreditHistory {
+	if name == models.UnreliablePerson1 || name == models.UnreliablePerson2 {
+		return &creditHistory{
+			person: map[string]bool{
+				name:false,
+			},
+		}
+	}
 	return &creditHistory{
-		person: map[string]bool{name:true},
+		person: map[string]bool{
+			name:true,
+		},
 	}
 }
 
