@@ -1,4 +1,4 @@
-package verifier
+package comparison
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	testVerifier = "Test verifier"
+	testVerifier = "Test comparison"
 	maximumCredit = "The maximum loan amount"
 	desiredCredit = "Desired credit"
 	maxCreditSize = 1000
@@ -22,7 +22,6 @@ var (
 		500,
 		5000,
 	}
-
 	want = []bool {
 		true,
 		true,

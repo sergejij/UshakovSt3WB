@@ -1,43 +1,43 @@
 package facade
 
 import (
-	"fasad/pkg/creditHistory"
-	"fasad/pkg/verifier"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-var (
-	persons = []string{
-		"John",
-		"Brad",
-		"Alex",
-		"Fill",
-		"Nik",
-		"Jack",
-	}
-	balance = 			2100
-	maxCredit = 		1000
-	desiredCredit =		1500
+type person struct {
+	name 			string
+	balance 		int
+	desiredCredit 	int
+}
 
+var (
+	numOfPerson = 3
+	persons = []person{
+		{
+			"John",
+			100,
+			2200,
+		},
+		{
+			"Nik",
+			100,
+			500,
+		},
+		{
+			"Alex",
+			200,
+			500,
+		},
+
+	}
+	expects = []bool{false, true, true}
 )
 
-func TestFacade(t *testing.T) {
-	var expect bool
-	for _, person := range persons {
-		story := creditHistory.NewCreditHistory(person)
-		isGoodCreditStory := story.HistoryCheck(person)
-		controller := verifier.NewVerifier(maxCredit)
-		isSumLessMax := controller.Verify(desiredCredit)
-		facade := NewCredit(person, balance,desiredCredit)
-		isBalanceGood := balance >= desiredCredit
-		if (isSumLessMax && (isGoodCreditStory || isBalanceGood)) ||
-			(isGoodCreditStory && (isSumLessMax || isBalanceGood)) {
-			expect = true
-		} else {
-			expect = false
-		}
+func TestCredit_TakeCredit(t *testing.T) {
+	for i := 0; i < numOfPerson; i++ {
+		facade := NewCredit(persons[i].name, persons[i].balance, persons[i].desiredCredit)
 		result := facade.TakeCredit()
-		assert.Equal(t, expect, result, person)
+		assert.Equal(t, expects[i], result, persons[i].name)
 	}
 }

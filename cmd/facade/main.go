@@ -1,21 +1,29 @@
 package main
 
 import (
+	"fasad/pkg/comparison"
 	"fasad/pkg/facade"
+	"fasad/pkg/history"
 	"fasad/pkg/models"
 	"fmt"
 )
 
 const (
-	name = 			"Alex"
-	myMoney = 		200
-	desiredLoan = 	100
+	name = 			"John"
+	myMoney = 		1000
+	desiredLoan = 	500
 )
 
 func main() {
+	var status bool
+	verifier := comparison.NewVerifier(models.MaxCredit)
+	if name != models.UnreliablePerson1 && name != models.UnreliablePerson2 {
+		status = true
+	}
+	creditReputation := history.NewCreditReputation(name, status)
 	credit := facade.NewCredit(name, myMoney, desiredLoan)
-	res := credit.TakeCredit()
-	if res {
+	result := credit.Take(verifier, creditReputation)
+	if result {
 		fmt.Printf("%s\n%s %d$.", models.CreditApproved,
 			models.CurrentBalance, myMoney + desiredLoan)
 	} else {

@@ -1,13 +1,15 @@
 package facade
 
-import (
-	"fasad/pkg/creditHistory"
-	"fasad/pkg/models"
-	"fasad/pkg/verifier"
-)
+type creditReputation interface {
+	CheckHistory(personName string) bool
+}
+
+type verifier interface {
+	Verify(loanSize int) bool
+}
 
 type Credit interface {
-	TakeCredit()	bool
+	Take(controller verifier, history creditReputation) bool
 }
 
 type credit struct {
@@ -16,27 +18,23 @@ type credit struct {
 	desiredCredit 	int
 }
 
-func (c *credit) TakeCredit() bool {
+func (c *credit) Take(controller verifier, repute creditReputation) bool {
 	var result bool
-	controller := verifier.NewVerifier(models.MaxCredit)
 	isSumLessMax := controller.Verify(c.desiredCredit)
-	story := creditHistory.NewCreditHistory(c.name)
-	isGoodCreditStory := story.HistoryCheck(c.name)
+	isGoodCreditHistory := repute.CheckHistory(c.name)
 	isBalanceGood := c.accountMoney >= c.desiredCredit
-	if (isSumLessMax && (isGoodCreditStory || isBalanceGood)) ||
-		(isGoodCreditStory && (isSumLessMax || isBalanceGood)) {
+	if (isSumLessMax && (isGoodCreditHistory || isBalanceGood)) ||
+		(isGoodCreditHistory && (isSumLessMax || isBalanceGood)) {
 		result = true
-	} else {
-		result = false
 	}
 	return result
 }
 
 // NewCredit initializes the Credit.
-func NewCredit(personName string, money int, wantMoney int) Credit {
+func NewCredit(name string, accountMoney int, desiredCredit int) Credit {
 	return &credit{
-		name: 			personName,
-		accountMoney: 	money,
-		desiredCredit: 	wantMoney,
+		name: 			name,
+		accountMoney: 	accountMoney,
+		desiredCredit: 	desiredCredit,
 	}
 }

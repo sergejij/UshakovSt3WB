@@ -1,4 +1,4 @@
-package creditHistory
+package history
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	testCreditHistory = "test credit history check"
+	testCreditHistory = "test credit history comparison"
 	personName = "Person name"
 )
 

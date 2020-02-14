@@ -2,5 +2,5 @@ package models
 
 // MaxCredit size
 const (
-	MaxCredit	int	= 500
+	MaxCredit	int	= 1500
 )
