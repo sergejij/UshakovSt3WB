@@ -20,9 +20,9 @@ func main() {
 	if name != models.UnreliablePerson1 && name != models.UnreliablePerson2 {
 		status = true
 	}
-	creditReputation := history.NewCreditReputation(name, status)
+	reputation := history.NewCreditReputation(name, status)
 	credit := facade.NewCredit(name, myMoney, desiredLoan)
-	result := credit.Take(verifier, creditReputation)
+	result := credit.Take(verifier, reputation)
 	if result {
 		fmt.Printf("%s\n%s %d$.", models.CreditApproved,
 			models.CurrentBalance, myMoney + desiredLoan)

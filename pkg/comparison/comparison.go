@@ -1,11 +1,11 @@
 package comparison
 
-type verifier struct {
-	maxCredit int
-}
-
 type Verifier interface {
 	Verify(loanSize int) bool
+}
+
+type verifier struct {
+	maxCredit int
 }
 
 func (v *verifier) Verify(desiredCredit int) bool {
