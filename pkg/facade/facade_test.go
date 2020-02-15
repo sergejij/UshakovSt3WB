@@ -2,13 +2,12 @@ package facade
 
 import (
 	"fasad/pkg/comparison"
-	"fasad/pkg/history"
-	"fasad/pkg/models"
-	"github.com/stretchr/testify/assert"
+	"fasad/pkg/mocks"
+	"github.com/golang/mock/gomock"
 	"testing"
 )
 
-type person struct {
+/*type person struct {
 	name 			string
 	balance 		int
 	desiredCredit 	int
@@ -36,8 +35,9 @@ var (
 	}
 	expects = []bool{false, true, true}
 )
+*/
 
-func TestCredit_TakeCredit(t *testing.T) {
+/*func TestCredit_TakeCredit(t *testing.T) {
 	var status bool
 	for i := 0; i < numOfPerson; i++ {
 		verifier := comparison.NewVerifier(models.MaxCredit)
@@ -51,4 +51,16 @@ func TestCredit_TakeCredit(t *testing.T) {
 		assert.Equal(t, expects[i], result, persons[i].name)
 		status = false
 	}
+}*/
+
+func TestCredit_Take(t *testing.T) {
+	mockCtrl := gomock.NewController(t)
+	//defer mockCtrl.Finish
+
+	mockVerifier := mocks.NewMockVerifier(mockCtrl)
+	testCredit := comparison.Verifier(mockVerifier)
+
+	mockVerifier.EXPECT().Verify(1000).Return(false).Times(1)
+
+	testCredit.Verify(1000)
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fasad/pkg/blacklist"
 	"fasad/pkg/comparison"
 	"fasad/pkg/facade"
 	"fasad/pkg/history"
@@ -9,17 +10,21 @@ import (
 )
 
 const (
-	name = 			"John"
+	name = 			"Nik"
 	myMoney = 		1000
-	desiredLoan = 	500
+	desiredLoan = 	1200
+)
+
+var (
+	unreliablePersons = []string{"John", "Nik", "Fill"}
 )
 
 func main() {
-	var status bool
 	verifier := comparison.NewVerifier(models.MaxCredit)
-	if name != models.UnreliablePerson1 && name != models.UnreliablePerson2 {
-		status = true
-	}
+
+	blockedPersons := blacklist.NewBlocked(unreliablePersons)
+	status := blockedPersons.Check(name) // можно ли метод вызвать в майне?
+
 	reputation := history.NewCreditReputation(name, status)
 	credit := facade.NewCredit(name, myMoney, desiredLoan)
 	result := credit.Take(verifier, reputation)
