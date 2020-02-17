@@ -1,9 +1,7 @@
 package facade
 
 import (
-	"fasad/pkg/comparison"
-	"fasad/pkg/mocks"
-	"github.com/golang/mock/gomock"
+	"github.com/stretchr/testify/mock"
 	"testing"
 )
 
@@ -52,15 +50,44 @@ var (
 		status = false
 	}
 }*/
+type verifierMock struct {
+	mock.Mock
+}
+
+type reputationMock struct {
+	mock.Mock
+}
+
+/*type VerifierMock interface {
+	Verify(desiredCredit int) (bool, error)
+}*/
+
+func (v *verifierMock) Verify(desiredCredit int) (bool, error) {
+	args := v.Called(desiredCredit)
+	return args.Bool(0), args.Error(1)
+}
+func (c *reputationMock) CheckHistory(name string) (bool, error) {
+	args := c.Called(name)
+	return args.Bool(0), args.Error(1)
+}
+/*func NewVerifierMock(maxCredit int) VerifierMock {
+	return &verifierMock {}
+}*/
+
 
 func TestCredit_Take(t *testing.T) {
-	mockCtrl := gomock.NewController(t)
-	//defer mockCtrl.Finish
+	money := 1000
+	desiredCredit := 500
+	name := "Alex"
+	testVerifier := new(verifierMock)
+	testVerifier.On("Verify", desiredCredit).Return(true, nil)
+	//testVerifier.Verify(desiredCredit)
+	//testVerifier.AssertExpectations(t)
 
-	mockVerifier := mocks.NewMockVerifier(mockCtrl)
-	testCredit := comparison.Verifier(mockVerifier)
 
-	mockVerifier.EXPECT().Verify(1000).Return(false).Times(1)
+	testReputation := new(reputationMock)
+	testReputation.On("CheckHistory", name).Return(true, nil)
 
-	testCredit.Verify(1000)
+	credit := NewCredit(name, money, 1500)
+	credit.Take(testVerifier, testReputation)
 }

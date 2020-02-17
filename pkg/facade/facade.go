@@ -1,13 +1,16 @@
 package facade
 
+// reputation checks whether a person has a good credit reputation.
 type reputation interface {
-	CheckHistory(personName string) bool
+	CheckHistory(name string) bool
 }
 
+// verifier checks whether the desiredCredit is greater than the maxCredit.
 type verifier interface {
 	Verify(loanSize int) bool
 }
 
+// Credit is a service that takes credit
 type Credit interface {
 	Take(controller verifier, history reputation) bool
 }
