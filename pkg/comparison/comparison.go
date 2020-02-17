@@ -1,5 +1,6 @@
 package comparison
 
+// Verifier checks whether the desiredCredit is greater than the maxCredit.
 type Verifier interface {
 	Verify(loanSize int) bool
 }

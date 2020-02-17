@@ -1,49 +1,32 @@
 package history
 
 import (
-	"fasad/pkg/models"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
 const (
-	testCreditHistory = "test credit history comparison"
-	personName = "Person name"
+	name = "Nik"
 )
 
 var (
-	persons = []string{
-		"John",
-		"Brad",
-		"Alex",
-		"Fill",
-		"Nik",
-		"Jack",
-	}
-
-	want = []bool {
-		false,
-		true,
-		true,
-		false,
-		true,
-		true,
-	}
+	unreliablePersons = []string{"John", "Nik", "Fill"}
 )
 
-func TestCreditHistory_HistoryCheck(t *testing.T) {
-	t.Run(testCreditHistory, func(t *testing.T) {
-		var status bool
-		for i, name := range persons {
-			if name != models.UnreliablePerson1 && name != models.UnreliablePerson2 {
-				status = true
-			}
-			story := NewCreditReputation(name, status)
-			result := story.CheckHistory(name)
-			assert.Equal(t, want[i], result, fmt.Sprintf("%s - %s.",
-				personName, persons[i]))
-			status= false
-		}
-	})
+func TestReputation_CheckHistory(t *testing.T) {
+	reputation := NewCreditReputation(unreliablePersons)
+	status := reputation.CheckHistory(name)
+	assert.Equal(t, false, status)
+	status = reputation.CheckHistory("Bob")
+	assert.Equal(t, true, status)
+	status = reputation.CheckHistory("John")
+	assert.Equal(t, true, status)
+	status = reputation.CheckHistory("")
+	assert.Equal(t, true, status)
+
+	reputation = NewCreditReputation([]string{"Bob"})
+	status = reputation.CheckHistory(name)
+	assert.Equal(t, true, status)
+	status = reputation.CheckHistory("Bob")
+	assert.Equal(t, false, status)
 }

@@ -1,22 +1,26 @@
 package history
 
+// Reputation checks whether a person has a good credit reputation.
 type Reputation interface {
-	CheckHistory(personName string) bool
+	CheckHistory(name string) bool
 }
 
 type reputation struct {
-	person map[string]bool
+	blackList 	[]string
 }
 
-func (c *reputation) CheckHistory(personName string) bool {
-	return c.person[personName]
+func (c *reputation) CheckHistory(name string) bool {
+	for i := 0; i < len(c.blackList); i++ {
+		if name == c.blackList[i] {
+			return false
+		}
+	}
+	return true
 }
 
 // NewCreditReputation initializes the Reputation.
-func NewCreditReputation(person string, status bool) Reputation {
+func NewCreditReputation(blackList []string) Reputation {
 	return &reputation{
-		person: map[string]bool{
-			person:status,
-		},
+		blackList:blackList,
 	}
 }
