@@ -8,14 +8,15 @@ import (
 )
 
 const (
-	testName = "Test facade"
-	methodVerify = "Verify"
-	methodCheckHistory = "CheckHistory"
-	name = "Alex"
-	accountMoney = 400
-	desiredCredit = 200
+	testName = 				"Test facade"
+	methodVerify = 			"Verify"
+	methodCheckHistory = 	"CheckHistory"
+	name = 					"Alex"
+	accountMoney = 			400
+	desiredCredit = 		200
 )
 
+// TestCredit_Take ...
 func TestCredit_Take(t *testing.T) {
 	t.Run(testName, func(t *testing.T) {
 		myCredit := NewCredit(name, accountMoney, desiredCredit)

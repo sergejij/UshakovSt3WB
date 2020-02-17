@@ -6,9 +6,6 @@ import (
 )
 
 const (
-	testVerifier = "Test comparison"
-	maximumCredit = "The maximum loan amount"
-	desiredCredit = "Desired credit"
 	maxCreditSize = 1000
 )
 
@@ -35,16 +32,7 @@ var (
 	}
 )
 
-/*func TestVerifier_Verify(t *testing.T) {
-	t.Run(testVerifier, func(t *testing.T) {
-		controller := NewVerifier(maxCreditSize)
-		for i, desired := range desiredCredits {
-			result:= controller.Verify(desired)
-			assert.Equal(t, want[i], result, fmt.Sprintf("%s - %d\n%s - %d",
-				desiredCredit, desired, maximumCredit, maxCreditSize))
-		}
-	})
-}*/
+// TestVerifier_Verify ...
 func TestVerifier_Verify(t *testing.T) {
 	comparison := NewVerifier(maxCreditSize)
 	for i := 0; i < len(desiredCredits); i++ {

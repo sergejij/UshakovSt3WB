@@ -13,6 +13,7 @@ var (
 	unreliablePersons = []string{"John", "Nik", "Fill"}
 )
 
+// TestReputation_CheckHistory ...
 func TestReputation_CheckHistory(t *testing.T) {
 	reputation := NewCreditReputation(unreliablePersons)
 	status := reputation.CheckHistory(name)
@@ -20,7 +21,7 @@ func TestReputation_CheckHistory(t *testing.T) {
 	status = reputation.CheckHistory("Bob")
 	assert.Equal(t, true, status)
 	status = reputation.CheckHistory("John")
-	assert.Equal(t, true, status)
+	assert.Equal(t, false, status)
 	status = reputation.CheckHistory("")
 	assert.Equal(t, true, status)
 

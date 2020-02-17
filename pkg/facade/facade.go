@@ -15,12 +15,14 @@ type Credit interface {
 	Take(controller verifier, history reputation) bool
 }
 
+// credit ...
 type credit struct {
 	name			string
 	accountMoney	int
 	desiredCredit 	int
 }
 
+// Take ...
 func (c *credit) Take(controller verifier, credit reputation) bool {
 	var result bool
 	isSumLessMax := controller.Verify(c.desiredCredit)
