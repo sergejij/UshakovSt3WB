@@ -5,9 +5,8 @@ type Reputation interface {
 	CheckHistory(name string) bool
 }
 
-// reputation ...
 type reputation struct {
-	blackList 	[]string
+	blackList []string
 }
 
 // CheckHistory ...
@@ -23,6 +22,6 @@ func (c *reputation) CheckHistory(name string) bool {
 // NewCreditReputation initializes the Reputation.
 func NewCreditReputation(blackList []string) Reputation {
 	return &reputation{
-		blackList:blackList,
+		blackList: blackList,
 	}
 }
