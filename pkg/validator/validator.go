@@ -9,6 +9,7 @@ type nameValidator struct {
 	maxCredit int
 }
 
+// Validate ...
 func (v *nameValidator) Validate(desiredCredit int) bool {
 	return desiredCredit <= v.maxCredit
 }
