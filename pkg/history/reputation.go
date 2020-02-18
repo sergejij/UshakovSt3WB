@@ -20,7 +20,7 @@ func (c *reputation) CheckHistory(name string) bool {
 }
 
 // NewCreditReputation initializes the Reputation.
-func NewCreditReputation(blackList []string) Reputation {
+func NewReputation(blackList []string) Reputation {
 	return &reputation{
 		blackList: blackList,
 	}

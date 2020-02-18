@@ -1,34 +1,35 @@
 package facade
 
 import (
-	"fasad/pkg/comparison"
-	"fasad/pkg/history"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	"fasad/pkg/history"
+	"fasad/pkg/validator"
 )
 
 const (
-	testName = 				"Test facade"
-	methodVerify = 			"Verify"
-	methodCheckHistory = 	"CheckHistory"
-	name = 					"Alex"
-	accountMoney = 			400
-	desiredCredit = 		200
+	testName           = "Test facade"
+	methodValidate     = "Validate"
+	methodCheckHistory = "CheckHistory"
+	name               = "Alex"
+	accountMoney       = 400
+	desiredCredit      = 200
 )
 
 // TestCredit_Take ...
 func TestCredit_Take(t *testing.T) {
 	t.Run(testName, func(t *testing.T) {
-		myCredit := NewCredit(name, accountMoney, desiredCredit)
-		comparisonMock := new(comparison.Mock)
-		comparisonMock.On(methodVerify, desiredCredit).Return(true).Once()
+		comparisonMock := new(validator.Mock)
+		comparisonMock.On(methodValidate, desiredCredit).Return(true).Once()
 
 		historyMock := new(history.Mock)
 		historyMock.On(methodCheckHistory, name).Return(true).Once()
 
-		res := myCredit.Take(comparisonMock, historyMock)
+		myCredit := NewCredit(comparisonMock, historyMock)
+		res := myCredit.Take(name, accountMoney, desiredCredit)
 		assert.Equal(t, true, res)
 	})
 
 }
-

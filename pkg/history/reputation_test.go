@@ -1,8 +1,9 @@
 package history
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 const (
@@ -15,7 +16,7 @@ var (
 
 // TestReputation_CheckHistory ...
 func TestReputation_CheckHistory(t *testing.T) {
-	reputation := NewCreditReputation(unreliablePersons)
+	reputation := NewReputation(unreliablePersons)
 	status := reputation.CheckHistory(name)
 	assert.Equal(t, false, status)
 	status = reputation.CheckHistory("Bob")
@@ -25,7 +26,7 @@ func TestReputation_CheckHistory(t *testing.T) {
 	status = reputation.CheckHistory("")
 	assert.Equal(t, true, status)
 
-	reputation = NewCreditReputation([]string{"Bob"})
+	reputation = NewReputation([]string{"Bob"})
 	status = reputation.CheckHistory(name)
 	assert.Equal(t, true, status)
 	status = reputation.CheckHistory("Bob")

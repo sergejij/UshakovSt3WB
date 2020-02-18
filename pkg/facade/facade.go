@@ -4,39 +4,37 @@ type historyReputation interface {
 	CheckHistory(name string) bool
 }
 
-type verifier interface {
-	Verify(loanSize int) bool
+type nameValidator interface {
+	Validate(loanSize int) bool
 }
 
 // Credit is a service that takes credit
 type Credit interface {
-	Take(controller verifier, historyReputation historyReputation) bool
+	Take(name string, accountMoney int, desiredCredit int) bool
 }
 
 type credit struct {
-	name          string
-	accountMoney  int
-	desiredCredit int
+	nameValidator     nameValidator
+	historyReputation historyReputation
 }
 
 // Take ...
-func (c *credit) Take(money, name string) (result bool) {
+func (c *credit) Take(name string, accountMoney int, desiredCredit int) bool {
 	var (
 		isSumLessMax, isGoodHistory, isBalanceGood bool
 	)
-	isSumLessMax = controller.Verify(c.desiredCredit)
-	isGoodHistory = historyReputation.CheckHistory(c.name)
-	isBalanceGood = c.accountMoney >= c.desiredCredit
+	isSumLessMax = c.nameValidator.Validate(desiredCredit)
+	isGoodHistory = c.historyReputation.CheckHistory(name)
+	isBalanceGood = accountMoney >= desiredCredit
 	return (isSumLessMax && isGoodHistory) ||
 		(isBalanceGood && isGoodHistory) ||
 		(isSumLessMax && isBalanceGood)
 }
 
 // NewCredit initializes the Credit.
-func NewCredit(name string, accountMoney int, desiredCredit int) Credit {
+func NewCredit(nameValidator nameValidator, historyReputation historyReputation) Credit {
 	return &credit{
-		name:          name,
-		accountMoney:  accountMoney,
-		desiredCredit: desiredCredit,
+		nameValidator:     nameValidator,
+		historyReputation: historyReputation,
 	}
 }

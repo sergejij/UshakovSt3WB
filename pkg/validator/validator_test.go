@@ -1,15 +1,22 @@
-package comparison
+package validator
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
-)
 
-const (
-	maxCreditSize = 1000
+	"github.com/stretchr/testify/assert"
 )
 
 var (
+	maxCreditSizes = []int{
+		1000,
+		1500,
+		2000,
+		3000,
+		1000,
+		2000,
+		0,
+		10,
+	}
 	desiredCredits = []int{
 		0,
 		100,
@@ -20,7 +27,7 @@ var (
 		5000,
 		15000,
 	}
-	want = []bool {
+	want = []bool{
 		true,
 		true,
 		true,
@@ -34,9 +41,9 @@ var (
 
 // TestVerifier_Verify ...
 func TestVerifier_Verify(t *testing.T) {
-	comparison := NewVerifier(maxCreditSize)
 	for i := 0; i < len(desiredCredits); i++ {
-		res := comparison.Verify(desiredCredits[i])
+		comparison := NewNameValidator(maxCreditSizes[i])
+		res := comparison.Validate(desiredCredits[i])
 		assert.Equal(t, want[i], res)
 	}
 }
