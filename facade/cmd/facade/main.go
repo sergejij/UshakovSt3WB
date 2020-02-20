@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"fasad/pkg/facade"
-	"fasad/pkg/history"
-	"fasad/pkg/models"
-	"fasad/pkg/validator"
+	"task1/facade/pkg/facade"
+	"task1/facade/pkg/history"
+	"task1/facade/pkg/models"
+	"task1/facade/pkg/validator"
 )
 
 const (

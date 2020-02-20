@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"fasad/pkg/history"
-	"fasad/pkg/validator"
+	"task1/pkg/history"
+	"task1/pkg/validator"
 )
 
 const (
