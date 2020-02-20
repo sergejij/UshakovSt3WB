@@ -1,43 +1,35 @@
 package facade
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+
+	"fasad/pkg/history"
+	"fasad/pkg/validator"
 )
 
-type person struct {
-	name 			string
-	balance 		int
-	desiredCredit 	int
-}
-
-var (
-	numOfPerson = 3
-	persons = []person{
-		{
-			"John",
-			100,
-			2200,
-		},
-		{
-			"Nik",
-			100,
-			500,
-		},
-		{
-			"Alex",
-			200,
-			500,
-		},
-
-	}
-	expects = []bool{false, true, true}
+const (
+	testName           = "Test facade"
+	methodValidate     = "Validate"
+	methodCheckHistory = "CheckHistory"
+	name               = "Alex"
+	accountMoney       = 400
+	desiredCredit      = 200
 )
 
-func TestCredit_TakeCredit(t *testing.T) {
-	for i := 0; i < numOfPerson; i++ {
-		facade := NewCredit(persons[i].name, persons[i].balance, persons[i].desiredCredit)
-		result := facade.TakeCredit()
-		assert.Equal(t, expects[i], result, persons[i].name)
-	}
+// TestCredit_Take ...
+func TestCredit_Take(t *testing.T) {
+	t.Run(testName, func(t *testing.T) {
+		comparisonMock := new(validator.Mock)
+		comparisonMock.On(methodValidate, desiredCredit).Return(true).Once()
+
+		historyMock := new(history.Mock)
+		historyMock.On(methodCheckHistory, name).Return(true).Once()
+
+		myCredit := NewCredit(comparisonMock, historyMock)
+		res := myCredit.Take(name, accountMoney, desiredCredit)
+		assert.Equal(t, true, res)
+	})
+
 }
