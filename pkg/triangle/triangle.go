@@ -1,7 +1,7 @@
 package triangle
 
 type visitor interface {
-	DrawTriangle(t Triangle)
+	DrawTriangleAndReturnSquare(t Triangle) (square float64)
 }
 
 // Triangle ...
@@ -16,7 +16,7 @@ type triangle struct {
 
 // Accept ...
 func (t *triangle) Accept(v visitor) {
-	v.DrawTriangle(t)
+	v.DrawTriangleAndReturnSquare(t)
 }
 
 // Side ...

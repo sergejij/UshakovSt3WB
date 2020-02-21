@@ -1,7 +1,7 @@
 package foursquare
 
 type visitor interface {
-	DrawFoursquare(f Foursquare)
+	DrawFoursquareAndReturnSquare(f Foursquare) (square int)
 }
 
 // Foursquare ...
@@ -16,7 +16,7 @@ type foursquare struct {
 
 // Accept ...
 func (f *foursquare) Accept(v visitor) {
-	v.DrawFoursquare(f)
+	v.DrawFoursquareAndReturnSquare(f)
 }
 
 // Side ...

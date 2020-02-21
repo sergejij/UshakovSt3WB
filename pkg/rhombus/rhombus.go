@@ -1,7 +1,7 @@
 package rhombus
 
 type visitor interface {
-	DrawRhombus(r Rhombus)
+	DrawRhombusAndReturnSquare(r Rhombus) (square int)
 }
 
 // Rhombus ...
@@ -16,7 +16,7 @@ type rhombus struct {
 
 // Accept ...
 func (r *rhombus) Accept(v visitor) {
-	v.DrawRhombus(r)
+	v.DrawRhombusAndReturnSquare(r)
 }
 
 // Side ...

@@ -10,9 +10,9 @@ import (
 )
 
 const (
-	sideOfRhombus     = 15
+	sideOfRhombus     = 5
 	sideOfTriangle    = 24
-	sideOfFoursquare  = 9
+	sideOfFoursquare  = 5
 	heightOfRectangle = 6
 	widthOfRectangle  = 10
 )

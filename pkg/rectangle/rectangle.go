@@ -1,7 +1,7 @@
 package rectangle
 
 type visitor interface {
-	DrawRectangle(r Rectangle)
+	DrawRectangleAndReturnSquare(r Rectangle) (square int)
 }
 
 // Rectangle ...
@@ -17,7 +17,7 @@ type rectangle struct {
 
 // Accept ...
 func (r *rectangle) Accept(v visitor) {
-	v.DrawRectangle(r)
+	v.DrawRectangleAndReturnSquare(r)
 }
 
 // Sides ...

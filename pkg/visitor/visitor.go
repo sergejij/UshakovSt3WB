@@ -12,18 +12,19 @@ import (
 
 // Visitor draws geometric shapes.
 type Visitor interface {
-	DrawRhombus(r rhombus.Rhombus)
-	DrawTriangle(t triangle.Triangle)
-	DrawRectangle(r rectangle.Rectangle)
-	DrawFoursquare(f foursquare.Foursquare)
+	DrawRhombusAndReturnSquare(r rhombus.Rhombus) (square int)
+	DrawTriangleAndReturnSquare(t triangle.Triangle) (square float64)
+	DrawRectangleAndReturnSquare(r rectangle.Rectangle) (square int)
+	DrawFoursquareAndReturnSquare(f foursquare.Foursquare) (square int)
 }
 
-type visitor struct {}
+type visitor struct{}
 
 /// DrawRhombus ...
-func (v *visitor) DrawRhombus(r rhombus.Rhombus) {
+func (v *visitor) DrawRhombusAndReturnSquare(r rhombus.Rhombus) (square int) {
 	fmt.Println(models.NewLine, models.Rhombus)
 	side := r.Side()
+	square = side * side / 2
 	center := side / 2
 	for i := 0; i < side; i++ {
 		for j := 0; j < side; j++ {
@@ -44,12 +45,14 @@ func (v *visitor) DrawRhombus(r rhombus.Rhombus) {
 		fmt.Println()
 	}
 	fmt.Println(models.SideRhombus, side)
-	fmt.Println(models.SideRhombus, side*side/2)
+	fmt.Println(models.Square, square)
+	return
 }
 
 // DrawTriangle ...
-func (v *visitor) DrawTriangle(t triangle.Triangle) {
+func (v *visitor) DrawTriangleAndReturnSquare(t triangle.Triangle) (square float64) {
 	side := t.Side()
+	square = float64(side) * float64(side) * models.RootOf3 / 4
 	fmt.Println(models.NewLine, models.Triangle)
 	for i := 0; i < side; i += 2 {
 		for j := 0; j < side; j++ {
@@ -63,13 +66,15 @@ func (v *visitor) DrawTriangle(t triangle.Triangle) {
 		fmt.Println()
 	}
 	fmt.Println(models.SideTriangle, side)
-	fmt.Printf("%s %.2f\n", models.Square, (float64(side)*float64(side)*models.RootOf3)/4)
+	fmt.Printf("%s %.2f\n", models.Square, square)
+	return
 }
 
 // DrawRectangle ...
-func (v *visitor) DrawRectangle(r rectangle.Rectangle) {
+func (v *visitor) DrawRectangleAndReturnSquare(r rectangle.Rectangle) (square int) {
 	var w string
 	width, height := r.Sides()
+	square = width * height
 	fmt.Println(models.NewLine, models.Rectangle)
 	if height == 1 {
 		for j := 0; j < width; j++ {
@@ -95,13 +100,15 @@ func (v *visitor) DrawRectangle(r rectangle.Rectangle) {
 	}
 	fmt.Println(models.WidthRectangle, width)
 	fmt.Println(models.HeightRectangle, height)
-	fmt.Println(models.Square, width*height)
+	fmt.Println(models.Square, square)
+	return
 }
 
 // DrawFoursquare ...
-func (v *visitor) DrawFoursquare(f foursquare.Foursquare) {
+func (v *visitor) DrawFoursquareAndReturnSquare(f foursquare.Foursquare) (square int) {
 	var w string
 	side := f.Side()
+	square = side * side
 	fmt.Println(models.NewLine, models.Foursquare)
 	if side == 1 {
 		fmt.Println(models.SmallFoursquare)
@@ -123,7 +130,8 @@ func (v *visitor) DrawFoursquare(f foursquare.Foursquare) {
 		}
 	}
 	fmt.Println(models.SideFoursquare, side)
-	fmt.Println(models.Square, side*side)
+	fmt.Println(models.Square, square)
+	return
 }
 
 // NewVisitor initializes the Visitor.
