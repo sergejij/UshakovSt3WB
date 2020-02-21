@@ -18,8 +18,7 @@ type Visitor interface {
 	DrawFoursquare(f foursquare.Foursquare)
 }
 
-type visitor struct {
-}
+type visitor struct {}
 
 /// DrawRhombus ...
 func (v *visitor) DrawRhombus(r rhombus.Rhombus) {
