@@ -6,7 +6,7 @@ type visitor interface {
 
 // Rhombus ...
 type Rhombus interface {
-	Accept(v visitor)
+	AcceptAndReturnSquare(v visitor) int
 	Side() int
 }
 
@@ -15,8 +15,8 @@ type rhombus struct {
 }
 
 // Accept ...
-func (r *rhombus) Accept(v visitor) {
-	v.DrawRhombusAndReturnSquare(r)
+func (r *rhombus) AcceptAndReturnSquare(v visitor) int {
+	return v.DrawRhombusAndReturnSquare(r)
 }
 
 // Side ...

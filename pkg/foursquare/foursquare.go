@@ -6,7 +6,7 @@ type visitor interface {
 
 // Foursquare ...
 type Foursquare interface {
-	Accept(v visitor)
+	AcceptAndReturnSquare(v visitor) int
 	Side() int
 }
 
@@ -15,8 +15,8 @@ type foursquare struct {
 }
 
 // Accept ...
-func (f *foursquare) Accept(v visitor) {
-	v.DrawFoursquareAndReturnSquare(f)
+func (f *foursquare) AcceptAndReturnSquare(v visitor) int {
+	return v.DrawFoursquareAndReturnSquare(f)
 }
 
 // Side ...

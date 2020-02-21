@@ -6,7 +6,7 @@ type visitor interface {
 
 // Triangle ...
 type Triangle interface {
-	Accept(v visitor)
+	AcceptAndReturnSquare(v visitor) float64
 	Side() int
 }
 
@@ -15,8 +15,8 @@ type triangle struct {
 }
 
 // Accept ...
-func (t *triangle) Accept(v visitor) {
-	v.DrawTriangleAndReturnSquare(t)
+func (t *triangle) AcceptAndReturnSquare(v visitor) float64 {
+	return v.DrawTriangleAndReturnSquare(t)
 }
 
 // Side ...

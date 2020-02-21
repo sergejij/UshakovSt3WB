@@ -2,12 +2,13 @@ package visitor
 
 import (
 	`fmt`
+	`math`
 
-	`visitor/pkg/foursquare`
-	"visitor/pkg/models"
-	`visitor/pkg/rectangle`
-	`visitor/pkg/rhombus`
-	`visitor/pkg/triangle`
+	`UshakovSt3WB/pkg/foursquare`
+	"UshakovSt3WB/pkg/models"
+	`UshakovSt3WB/pkg/rectangle`
+	`UshakovSt3WB/pkg/rhombus`
+	`UshakovSt3WB/pkg/triangle`
 )
 
 // Visitor draws geometric shapes.
@@ -66,7 +67,7 @@ func (v *visitor) DrawTriangleAndReturnSquare(t triangle.Triangle) (square float
 		fmt.Println()
 	}
 	fmt.Println(models.SideTriangle, side)
-	fmt.Printf("%s %.2f\n", models.Square, square)
+	fmt.Printf("%s %.2f\n", models.Square, math.Round(square/0.5)*0.5)
 	return
 }
 

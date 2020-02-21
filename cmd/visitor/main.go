@@ -1,20 +1,20 @@
 package main
 
 import (
-	`visitor/pkg/foursquare`
-	`visitor/pkg/rectangle`
-	`visitor/pkg/rhombus`
-	`visitor/pkg/triangle`
+	`UshakovSt3WB/pkg/foursquare`
+	`UshakovSt3WB/pkg/rectangle`
+	`UshakovSt3WB/pkg/rhombus`
+	`UshakovSt3WB/pkg/triangle`
 
-	`visitor/pkg/visitor`
+	`UshakovSt3WB/pkg/visitor`
 )
 
 const (
-	sideOfRhombus     = 5
-	sideOfTriangle    = 24
-	sideOfFoursquare  = 5
-	heightOfRectangle = 6
-	widthOfRectangle  = 10
+	sideOfRhombus     = 10
+	sideOfTriangle    = 10
+	sideOfFoursquare  = 10
+	heightOfRectangle = 5
+	widthOfRectangle  = 15
 )
 
 func main() {
@@ -24,8 +24,8 @@ func main() {
 	newTriangle := triangle.NewTriangle(sideOfTriangle)
 	newFoursquare := foursquare.NewFoursquare(sideOfFoursquare)
 
-	newTriangle.Accept(newVisitor)
-	newRectangle.Accept(newVisitor)
-	newFoursquare.Accept(newVisitor)
-	newRhombus.Accept(newVisitor)
+	newTriangle.AcceptAndReturnSquare(newVisitor)
+	newRectangle.AcceptAndReturnSquare(newVisitor)
+	newFoursquare.AcceptAndReturnSquare(newVisitor)
+	newRhombus.AcceptAndReturnSquare(newVisitor)
 }

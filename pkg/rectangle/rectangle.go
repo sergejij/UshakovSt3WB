@@ -6,7 +6,7 @@ type visitor interface {
 
 // Rectangle ...
 type Rectangle interface {
-	Accept(v visitor)
+	AcceptAndReturnSquare(v visitor) int
 	Sides() (int, int)
 }
 
@@ -16,8 +16,8 @@ type rectangle struct {
 }
 
 // Accept ...
-func (r *rectangle) Accept(v visitor) {
-	v.DrawRectangleAndReturnSquare(r)
+func (r *rectangle) AcceptAndReturnSquare(v visitor) int {
+	return v.DrawRectangleAndReturnSquare(r)
 }
 
 // Sides ...
